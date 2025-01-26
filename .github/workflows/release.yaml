@@ -51,7 +51,7 @@ jobs:
     - name: Log into registry ${{ env.HELM_REGISTRY }}
       uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
       with:
-        registry: ${{ env.REGISTRY }}
+        registry: ${{ env.HELM_REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Helm charts to registry

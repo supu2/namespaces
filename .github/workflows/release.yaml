@@ -21,7 +21,7 @@ on:
 
 env:
   HELM_REGISTRY: ghcr.io
-  CHART_DIR: deploy/helm
+  CHART_DIR: chart
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -57,5 +57,5 @@ jobs:
     - name: Push Helm charts to registry
       run: |
         helm dependency update ./${{ env.CHART_DIR }}
-        helm package ./${{ env.CHART_DIR }} --destination ./charts --app-version ${{ steps.bump-semver.outputs.new_version }} --version ${{ steps.bump-semver.outputs.new_version }}
-        helm push ./charts/${{ github.event.repository.name }}-${{ steps.bump-semver.outputs.new_version }}.tgz oci://${{ env.HELM_REGISTRY }}/${{ github.repository_owner }}/${{ github.event.repository.name }}
+        helm package ./${{ env.CHART_DIR }} --destination ./chart --app-version ${{ steps.bump-semver.outputs.new_version }} --version ${{ steps.bump-semver.outputs.new_version }}
+        helm push ./chart/${{ github.event.repository.name }}-${{ steps.bump-semver.outputs.new_version }}.tgz oci://${{ env.HELM_REGISTRY }}/${{ github.repository_owner }}/${{ github.event.repository.name }}

@@ -1,0 +1,30 @@
+namespaces:
+  - name: secured-namespace
+    create: true
+    labels: {}
+    istio:
+      enabled: true
+      mtlsEnforcement: true
+    extraResources: []
+    # - |
+    #   # Namespace-scoped
+    #   apiVersion: v1
+    #   kind: Secret
+    #   metadata:
+    #     name: credentials
+    #     namespace: {{ .namespace.name }}
+    #   stringData:
+    #     user: admin
+    # - |
+    #   # Cluster-scoped
+    #   apiVersion: rbac.authorization.k8s.io/v1
+    #   kind: ClusterRole
+    #   metadata:
+    #     name: admin
+    #   rules:
+    #   - apiGroups:
+    #     - "*"
+    #     resources:
+    #     - "*"
+    #     verbs:
+    #     - "*"

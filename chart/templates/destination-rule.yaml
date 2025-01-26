@@ -1,0 +1,15 @@
+{{- range .Values.namespaces }}
+{{- if and .istio.enabled .istio.mtlsEnforcement }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ .name }}-mtls-dr
+  namespace: {{ .name }}
+spec:
+  host: "*.{{ .name }}.svc.cluster.local"
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+{{- end }}
+{{- end }}

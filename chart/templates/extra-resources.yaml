@@ -1,0 +1,9 @@
+{{- range $namespace := .Values.namespaces }}
+{{- if $namespace.extraResources }}
+{{- $context := merge (dict "namespace" $namespace) $ }}
+{{ range $resource := $namespace.extraResources }}
+{{- tpl ($resource | trim) $context }}
+---
+{{- end }}
+{{- end }}
+{{- end }}

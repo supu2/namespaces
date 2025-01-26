@@ -1,0 +1,5 @@
+apiVersion: v2
+name: namespaces
+description: Helm chart for namespaces in cluster
+version: 0.1.0
+appVersion: 0.1.0

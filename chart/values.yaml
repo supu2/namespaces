@@ -5,6 +5,10 @@ namespaces:
     istio:
       enabled: true
       mtlsEnforcement: true
+      authorized: {}
+        # namespaces:
+        #   - dev
+        #   - test
     extraResources: []
     # - |
     #   # Namespace-scoped

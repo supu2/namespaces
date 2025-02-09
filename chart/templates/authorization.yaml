@@ -1,0 +1,27 @@
+{{- range .Values.namespaces }}
+{{- if and .istio.enabled .istio.authorized }}
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-nothing
+  namespace: {{ .name }}
+spec:
+  {}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow
+  namespace: {{ .name }}
+spec:
+  rules:
+  - from:
+    - source:
+        namespaces:
+        - {{ .name }}
+        {{- range .istio.authorized.namespaces }}
+        - {{ . }}
+        {{- end }}
+---
+{{- end }}
+{{- end }}

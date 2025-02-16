@@ -5,7 +5,7 @@ on:
       versionLevel:
         description: 'The semVer level of the version'
         required: true
-        default: 'minor'
+        default: 'patch'
         type: choice
         options:
         - major
@@ -34,6 +34,8 @@ jobs:
     - name: Retrieve last tag
       uses: actions-ecosystem/action-get-latest-tag@v1
       id: get-latest-tag
+      with:
+        initial_version: 0.2.0
     - name: Bump version with level ${{ github.event.inputs.baseBranch }}
       uses: actions-ecosystem/action-bump-semver@v1
       id: bump-semver
@@ -56,6 +58,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Helm charts to registry
       run: |
+        export VERSION=$(echo "${TAG#v}")
         helm dependency update ./${{ env.CHART_DIR }}
         helm package ./${{ env.CHART_DIR }} --destination ./chart --app-version ${{ steps.bump-semver.outputs.new_version }} --version ${{ steps.bump-semver.outputs.new_version }}
         helm push ./chart/${{ github.event.repository.name }}-${{ steps.bump-semver.outputs.new_version }}.tgz oci://${{ env.HELM_REGISTRY }}/${{ github.repository_owner }}/${{ github.event.repository.name }}

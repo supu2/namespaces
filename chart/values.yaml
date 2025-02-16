@@ -4,7 +4,7 @@ namespaces:
     labels: {}
     istio:
       enabled: true
-      mtlsEnforcement: true
+      mtlsEnforcement: "PERMISSIVE" # "STRICT"
       authorized: {}
         # namespaces:
         #   - dev

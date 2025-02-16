@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .name }}
 spec:
   mtls:
-    mode: STRICT
+    mode: {{ .istio.mtlsEnforcement }}
 ---
 {{- end }}
 {{- end }}
